@@ -1,18 +1,5 @@
 ---
 
-- name: Copy SSSD init script
-  copy:
-    dest: /etc/init.d/sssd
-    group: root
-    mode: 0755
-    owner: root
-    src: "sssd.init-{{ ansible_os_family }}"
-  notify:
-    - restart sssd
-  when: >
-        (not sssd_from_sources) and
-        (ansible_os_family == "RedHat")
-
 - name: Configure SSSD service (from config)
   template:
     dest: /etc/sssd/sssd.conf
@@ -44,3 +31,5 @@
   notify:
     - restart ssh
   when: sssd_manage_sshd_dns_service_lookup
+
+...

@@ -15,3 +15,7 @@
   service:
     name: "{{ sssd_ssh_service_name }}"
     state: restarted
+
+- name: run pam auth update
+  shell: pam-auth-update --package
+

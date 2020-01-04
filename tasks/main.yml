@@ -24,3 +24,8 @@
   when: sssd_from_sources
 
 - include_tasks: sssd-config.yml
+
+- include_tasks: nsswitch-config.yml
+
+- include_tasks: pamd-config.yml
+

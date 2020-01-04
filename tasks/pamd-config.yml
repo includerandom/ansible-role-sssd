@@ -1,0 +1,23 @@
+---
+- name: Ensure home directories are created upon login on Debian
+  lineinfile:
+    dest: /etc/pam.d/common-account
+    regexp: 'pam_mkhomedir\.so'
+    line: "session required pam_mkhomedir.so skel=/etc/skel/ umask=0022"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add pam_mkhomedir for Debian machines
+  copy:
+    src: pam_mkhomedir
+    dest: /usr/share/pam-configs/mkhomedir
+  when: ansible_os_family == "Debian"
+  notify:
+    - run pam auth update
+
+- name: Add SSSD auth and add pam_mkhomedir for RedHat machines
+  command: /usr/sbin/authconfig --enablesssdauth --enablemkhomedir --update
+  changed_when: false
+  when: ansible_os_family == "RedHat"
+...
+

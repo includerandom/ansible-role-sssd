@@ -15,6 +15,9 @@ sssd_manage_sshd_dns_service_lookup: false
 # Type: Str
 sssd_config_type: none
 
+# Enable manage sudo for ldap users by sudorules
+sssd_ldap_sudo: false
+
 # SSSD config options
 # Format:
 # Type: Dict
